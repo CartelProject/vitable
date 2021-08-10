@@ -1,4 +1,4 @@
-import os, json, times, strutils, parseopt
+import os, json, times, strutils, docopt
 
 assert getHomeDir() == expandTilde("~")
 var path = getHomeDir()
@@ -6,10 +6,44 @@ path.add(".vitable.json")
 let jsonNode = parseFile(path)
 var tt = jsonNode["Slots"]
 
+let p10kfunc = """
+function prompt_vitable() {
+        ttrem=$(vitable remaining)
+        p10k segment -b yellow -f black -t "$ttrem"
+}
+"""
+
+let doc = """
+VITable 1.0.0
+
+View your timetable right in your terminal!
+
+Created with <3 by the Cartel Family.
+
+USAGE:
+    vitable show
+    vitable remaining
+    vitable p10k
+    vitable (-h | --help)
+    vitable (-v | --version)
+
+OPTIONS:
+    -h, --help          Show this screen.
+    -v, --version       Show the version.
+"""
+
 let daynow = now()
 var daytoday = toUpperAscii(daynow.format("ddd"))
 
+proc findAllClasses(): auto = 
+    var classesTotal = 0
+    for i in tt:
+        if getStr(i["Day"]) == daytoday:
+            classesTotal = classesTotal + 1
+    return classesTotal
+
 proc showTT() = 
+    echo "Timetable for today."
     for i in tt:
         if getStr(i["Day"]) == daytoday:
             var
@@ -18,8 +52,38 @@ proc showTT() =
                 intime = i["StartTime"]
                 outtime = i["EndTime"]
             echo ""
-            echo "Course: " & getStr(course)
-            echo "Timings: " & getStr(intime) & " - " & getStr(outtime)
-            echo "Slot: " & getStr(slot)
+            echo "Course: ", getStr(course)
+            echo "Timings: ", getStr(intime), " - ", getStr(outtime)
+            echo "Slot: ", getStr(slot)
 
-showTT()
+proc p10kInstall() = 
+    echo "VITable Powerlevel10k plugin.\n"
+    echo "In ~/.p10k.zsh, add the following function.\n"
+    echo p10kfunc
+    echo ""
+    echo "Now, add the definition vitable to LEFT or RIGHT arguments, whatever you prefer.\n"
+    echo "Source .zshrc, or restart your terminal."
+
+proc classesDone() =  
+    var classesDone = 0
+    if daytoday == "SAT" or daytoday == "SUN":
+        echo "No classes today!"
+    else:
+        for f in tt:
+            if getStr(f["Day"]) == daytoday:
+                var timenow = daynow.format("HH:mm")
+                var intime = getStr(f["StartTime"])
+                if timenow > intime:
+                    classesDone = classesDone + 1
+        echo "Classes: ", classesDone, "/", findAllClasses()
+
+let args = docopt(doc, version = "1.0.0")
+
+if args["show"]:
+    showTT()
+
+if args["p10k"]:
+    p10kInstall()
+
+if args["remaining"]:
+    classesDone()
