@@ -20,6 +20,10 @@ View your timetable right in your terminal!
 
 Created with <3 by the Cartel Family.
 
+Developers:
+    Gagan Malvi (https://github.com/gaganmalvi)
+    Vishesh Bansal (https://github.com/VisheshBansal)
+
 USAGE:
     vitable show
     vitable remaining
