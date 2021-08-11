@@ -1,9 +1,9 @@
 .PHONY build:
-	nim -d:release c vitable.nim
+	nim -d:release -d:ssl c src/vitable.nim
        clean:
-	rm vitable
+	rm -f src/vitable
        fullsysinst:
 	make clean
 	make build
-	sudo cp vitable /usr/bin
+	sudo cp src/vitable /usr/bin
 	make clean
