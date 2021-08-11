@@ -8,7 +8,7 @@ var tt = jsonNode["Slots"]
 
 let p10kfunc = """
 function prompt_vitable() {
-        ttrem=$(vitable remaining)
+        ttrem=$(vitable ongoing)
         p10k segment -b yellow -f black -t "$ttrem"
 }
 """
@@ -26,7 +26,7 @@ Developers:
 
 USAGE:
     vitable (s | show)
-    vitable (r | remaining)
+    vitable (o | ongoing)
     vitable p10k
     vitable (-h | --help)
     vitable (-v | --version)
@@ -88,5 +88,5 @@ if args["show"] or args["s"]:
 if args["p10k"]:
     p10kInstall()
 
-if args["remaining"] or args["r"]:
+if args["ongoing"] or args["o"]:
     classesOngoing()
