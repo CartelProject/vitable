@@ -1,5 +1,5 @@
 .PHONY build:
-	nim c vitable.nim
+	nim -d:release c vitable.nim
        clean:
 	rm vitable
        fullsysinst:

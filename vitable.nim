@@ -39,13 +39,6 @@ OPTIONS:
 let daynow = now()
 var daytoday = toUpperAscii(daynow.format("ddd"))
 
-proc findAllClasses(): auto = 
-    var classesTotal = 0
-    for i in tt:
-        if getStr(i["Day"]) == daytoday:
-            classesTotal = classesTotal + 1
-    return classesTotal
-
 proc showTT() = 
     echo "Timetable for today."
     for i in tt:
@@ -68,8 +61,7 @@ proc p10kInstall() =
     echo "Now, add the definition vitable to LEFT or RIGHT arguments, whatever you prefer.\n"
     echo "Source .zshrc, or restart your terminal."
 
-proc classesDone() =  
-    var classesDone = 0
+proc classesOngoing() =  
     if daytoday == "SAT" or daytoday == "SUN":
         echo "No classes today!"
     else:
@@ -77,9 +69,13 @@ proc classesDone() =
             if getStr(f["Day"]) == daytoday:
                 var timenow = daynow.format("HH:mm")
                 var intime = getStr(f["StartTime"])
-                if timenow > intime:
-                    classesDone = classesDone + 1
-        echo "Classes: ", classesDone, "/", findAllClasses()
+                var outtime = getStr(f["EndTime"])
+                if timenow > intime and timenow < outtime:
+                    echo "Ongoing: ", getStr(f["Course_Name"])
+                    break
+                else:
+                    echo "No ongoing class!"
+                    break
 
 let args = docopt(doc, version = "1.0.0")
 
@@ -90,4 +86,4 @@ if args["p10k"]:
     p10kInstall()
 
 if args["remaining"] or args["r"]:
-    classesDone()
+    classesOngoing()
