@@ -75,10 +75,6 @@ proc classesOngoing() =
                 var outtime = getStr(f["EndTime"])
                 if timenow > intime and timenow < outtime:
                     echo "Ongoing: ", getStr(f["Course_Name"])
-                    break
-                else:
-                    echo "No ongoing class!"
-                    break
 
 let args = docopt(doc, version = "1.0.0")
 
