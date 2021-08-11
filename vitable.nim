@@ -41,17 +41,20 @@ var daytoday = toUpperAscii(daynow.format("ddd"))
 
 proc showTT() = 
     echo "Timetable for today."
-    for i in tt:
-        if getStr(i["Day"]) == daytoday:
-            var
-                course = i["Course_Name"]
-                slot = i["Slot"]
-                intime = i["StartTime"]
-                outtime = i["EndTime"]
-            echo ""
-            echo "Course: ", getStr(course)
-            echo "Timings: ", getStr(intime), " - ", getStr(outtime)
-            echo "Slot: ", getStr(slot)
+    if daytoday == "SAT" or daytoday == "SUN":
+        echo "No classes for today!"
+    else: 
+        for i in tt:
+            if getStr(i["Day"]) == daytoday:
+                var
+                    course = i["Course_Name"]
+                    slot = i["Slot"]
+                    intime = i["StartTime"]
+                    outtime = i["EndTime"]
+                echo ""
+                echo "Course: ", getStr(course)
+                echo "Timings: ", getStr(intime), " - ", getStr(outtime)
+                echo "Slot: ", getStr(slot)
 
 proc p10kInstall() = 
     echo "VITable Powerlevel10k plugin.\n"
