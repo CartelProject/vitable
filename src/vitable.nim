@@ -60,16 +60,15 @@ proc fetchreq() =
     let response = client.request("https://vit-timetableapi.herokuapp.com/fetch/", httpMethod = HttpPost, body = $param)
     if response.status == "200 OK":
         let resp = response.body
-
         writeFile(path, resp)
-        echo "TimeTable Saved! Type vitable to show all commands!"
+        echo "The timetable has been saved successfully. Please re-run vitable -h to know the list of commands you can now use."
     else:
-        echo "Something went wrong!"
+        echo "Something went wrong. Please retry once again."
     f.close()
 
 proc fetchNewTt() =
     echo "Copy your timetable from VTOP and paste it in timetable.txt, which should be placed in the home directory."
-    echo "Proceed(y/n): "
+    echo "Do you want to proceed? [Y/N] "
     let ans = readLine(stdin)
     if ans=="y":
         fetchreq()
