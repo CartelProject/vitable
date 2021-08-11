@@ -14,8 +14,8 @@
 
 ```
 $ git clone "https://github.com/CartelProject/VITable-CLI"
-$ touch .vitable.json timetable.txt
 $ cd VITable-CLI
+$ touch .vitable.json timetable.txt
 $ nimble build
 $ ./vitable -h
 ```
