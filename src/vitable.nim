@@ -70,7 +70,7 @@ proc fetchNewTt() =
     echo "Copy your timetable from VTOP and paste it in timetable.txt, which should be placed in the home directory."
     echo "Do you want to proceed? [Y/N] "
     let ans = readLine(stdin)
-    if ans=="y":
+    if ans=="y" or ans=="Y":
         fetchreq()
 
 let daynow = now()
