@@ -25,8 +25,8 @@ Developers:
     Vishesh Bansal (https://github.com/VisheshBansal)
 
 USAGE:
-    vitable show
-    vitable remaining
+    vitable (s | show)
+    vitable (r | remaining)
     vitable p10k
     vitable (-h | --help)
     vitable (-v | --version)
@@ -83,11 +83,11 @@ proc classesDone() =
 
 let args = docopt(doc, version = "1.0.0")
 
-if args["show"]:
+if args["show"] or args["s"]:
     showTT()
 
 if args["p10k"]:
     p10kInstall()
 
-if args["remaining"]:
+if args["remaining"] or args["r"]:
     classesDone()
