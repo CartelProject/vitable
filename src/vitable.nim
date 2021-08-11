@@ -3,10 +3,6 @@ import os, json, times, strutils, docopt , httpclient
 let cliversion = "0.1.0"
 
 assert getHomeDir() == expandTilde("~")
-var path = getHomeDir()
-path.add(".vitable.json")
-let jsonNode = parseFile(path)
-var tt = jsonNode["Slots"]
 
 let p10kfunc = """
 function prompt_vitable() {
@@ -41,7 +37,6 @@ USAGE:
     vitable (o | ongoing | Shows ongoing class)
     vitable (a | all | Shows full timetable)
     vitable (n | new | Add or edit Timetable)
-    vitable (s | show | Shows all classes today)
     vitable p10k
     vitable (-h | --help)
     vitable (-v | --version)
@@ -52,64 +47,89 @@ OPTIONS:
 """
 
 proc fetchreq() =
-    let f = open("timetable.txt")
+    var ttfile = getHomeDir()
+    ttfile.add("timetable.txt")
+    let f = open(ttfile)
     let data = readAll(f)
     var param = "request="
     param.add(data)
     let client = newHttpClient()
     client.headers = newHttpHeaders({ "Accept":"application/json","Content-Type": "application/x-www-form-urlencoded" })
-
+    var path = getHomeDir()
+    path.add(".vitable.json")
     let response = client.request("https://vit-timetableapi.herokuapp.com/fetch/", httpMethod = HttpPost, body = $param)
     if response.status == "200 OK":
         let resp = response.body
-        writeFile(".vitable.json", resp)
+
+        writeFile(path, resp)
         echo "TimeTable Saved! Type vitable to show all commands!"
     else:
         echo "Something went wrong!"
     f.close()
 
+proc fetchNewTt() =
+    echo "Copy your timetable from VTOP and paste it in timetable.txt, which should be placed in the home directory."
+    echo "Proceed(y/n): "
+    let ans = readLine(stdin)
+    if ans=="y":
+        fetchreq()
+
 let daynow = now()
 var daytoday = toUpperAscii(daynow.format("ddd"))
 
 proc showTT() = 
-    echo "Timetable for today."
-    if daytoday == "SAT" or daytoday == "SUN":
-        echo "No classes for today!"
-    else: 
-        for i in tt:
-            if getStr(i["Day"]) == daytoday:
+    try:
+        var path = getHomeDir()
+        path.add(".vitable.json")
+        let jsonNode = parseFile(path)
+        var tt = jsonNode["Slots"]
+        echo "Timetable for today."
+        if daytoday == "SAT" or daytoday == "SUN":
+            echo "No classes for today!"
+        else: 
+            for i in tt:
+                if getStr(i["Day"]) == daytoday:
+                    var
+                        course = i["Course_FullName"]
+                        coursecode = i["Course_Name"]
+                        coursetype = i["Course_type"]
+                        slot = i["Slot"]
+                        intime = i["StartTime"]
+                        outtime = i["EndTime"]
+                    echo ""
+                    echo "Course: ", getStr(course)
+                    echo "Course Code: ", getStr(coursecode)
+                    echo "Course Type: ", getStr(coursetype)
+                    echo "Timings: ", getStr(intime), " - ", getStr(outtime)
+                    echo "Slot: ", getStr(slot)
+    except IOError:
+        fetchNewTt()
+
+proc showAll() = 
+    try:
+        var path = getHomeDir()
+        path.add(".vitable.json")
+        let jsonNode = parseFile(path)
+        var tt = jsonNode["Slots"]
+        echo "Full Timetable"
+        if daytoday == "SAT" or daytoday == "SUN":
+            echo "No classes for today!"
+        else: 
+            for i in tt:
+                echo "Day: ",getStr(i["Day"])
                 var
                     course = i["Course_FullName"]
                     coursecode = i["Course_Name"]
-                    coursetype = i["Course_type"]
                     slot = i["Slot"]
                     intime = i["StartTime"]
                     outtime = i["EndTime"]
-                echo ""
                 echo "Course: ", getStr(course)
                 echo "Course Code: ", getStr(coursecode)
-                echo "Course Type: ", getStr(coursetype)
                 echo "Timings: ", getStr(intime), " - ", getStr(outtime)
                 echo "Slot: ", getStr(slot)
-
-proc showAll() = 
-    echo "Full Timetable"
-    if daytoday == "SAT" or daytoday == "SUN":
-        echo "No classes for today!"
-    else: 
-        for i in tt:
-            echo "Day: ",getStr(i["Day"])
-            var
-                course = i["Course_FullName"]
-                coursecode = i["Course_Name"]
-                slot = i["Slot"]
-                intime = i["StartTime"]
-                outtime = i["EndTime"]
-            echo "Course: ", getStr(course)
-            echo "Course Code: ", getStr(coursecode)
-            echo "Timings: ", getStr(intime), " - ", getStr(outtime)
-            echo "Slot: ", getStr(slot)
-            echo ""
+                echo ""
+    except IOError:
+        fetchNewTt()
 
 proc p10kInstall() = 
     echo "VITable Powerlevel10k plugin.\n"
@@ -120,16 +140,23 @@ proc p10kInstall() =
     echo "Source .zshrc, or restart your terminal."
 
 proc classesOngoing() =  
-    if daytoday == "SAT" or daytoday == "SUN":
-        echo "No classes today!"
-    else:
-        for f in tt:
-            if getStr(f["Day"]) == daytoday:
-                var timenow = daynow.format("HH:mm")
-                var intime = getStr(f["StartTime"])
-                var outtime = getStr(f["EndTime"])
-                if timenow > intime and timenow < outtime:
-                    echo "Ongoing: ", getStr(f["Course_Name"]), " - ", getStr(f["Course_type"])
+    try:
+        var path = getHomeDir()
+        path.add(".vitable.json")
+        let jsonNode = parseFile(path)
+        var tt = jsonNode["Slots"]
+        if daytoday == "SAT" or daytoday == "SUN":
+            echo "No classes today!"
+        else:
+            for f in tt:
+                if getStr(f["Day"]) == daytoday:
+                    var timenow = daynow.format("HH:mm")
+                    var intime = getStr(f["StartTime"])
+                    var outtime = getStr(f["EndTime"])
+                    if timenow > intime and timenow < outtime:
+                        echo "Ongoing: ", getStr(f["Course_Name"]), " - ", getStr(f["Course_type"])
+    except IOError:
+        fetchNewTt()
 
 let args = docopt(doc, version = cliversion)
 
@@ -146,8 +173,4 @@ if args["all"] or args["a"]:
     showAll()
 
 if args["new"] or args["n"]:
-    echo "Copy your TimeTable from VTOP and paste it in timetable.txt"
-    echo "Proceed(y/n) :"
-    let ans = readLine(stdin)
-    if ans=="y":
-        fetchreq()
+    fetchNewTt()
