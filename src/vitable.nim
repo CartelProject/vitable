@@ -1,4 +1,6 @@
-import os, json, times, strutils, docopt ,httpclient
+import os, json, times, strutils, docopt , httpclient
+
+let cliversion = "0.1.0"
 
 assert getHomeDir() == expandTilde("~")
 var path = getHomeDir()
@@ -26,8 +28,6 @@ __      _______ _______    _     _
    \  /   _| |_   | | (_| | |_) | |  __/
     \/   |_____|  |_|\__,_|_.__/|_|\___|
 
-            Version 1.0.0
-
 View your timetable right in your terminal!
 
 Created with ❤️  by the Cartel Family.
@@ -40,6 +40,8 @@ USAGE:
     vitable (s | show | Shows all classes today)
     vitable (o | ongoing | Shows ongoing class)
     vitable (a | all | Shows full timetable)
+    vitable (n | new | Add or edit Timetable)
+    vitable (s | show | Shows all classes today)
     vitable p10k
     vitable (-h | --help)
     vitable (-v | --version)
@@ -48,6 +50,23 @@ OPTIONS:
     -h, --help          Show this screen.
     -v, --version       Show the version.
 """
+
+proc fetchreq() =
+    let f = open("timetable.txt")
+    let data = readAll(f)
+    var param = "request="
+    param.add(data)
+    let client = newHttpClient()
+    client.headers = newHttpHeaders({ "Accept":"application/json","Content-Type": "application/x-www-form-urlencoded" })
+
+    let response = client.request("https://vit-timetableapi.herokuapp.com/fetch/", httpMethod = HttpPost, body = $param)
+    if response.status == "200 OK":
+        let resp = response.body
+        writeFile(".vitable.json", resp)
+        echo "TimeTable Saved! Type vitable to show all commands!"
+    else:
+        echo "Something went wrong!"
+    f.close()
 
 let daynow = now()
 var daytoday = toUpperAscii(daynow.format("ddd"))
@@ -111,11 +130,8 @@ proc classesOngoing() =
                 var outtime = getStr(f["EndTime"])
                 if timenow > intime and timenow < outtime:
                     echo "Ongoing: ", getStr(f["Course_Name"]), " - ", getStr(f["Course_type"])
-                else:
-                    echo "No ongoing classes! Up for some Minecraft?"
-                    break
 
-let args = docopt(doc, version = "1.0.0")
+let args = docopt(doc, version = cliversion)
 
 if args["show"] or args["s"]:
     showTT()
@@ -128,3 +144,10 @@ if args["ongoing"] or args["o"]:
 
 if args["all"] or args["a"]:
     showAll()
+
+if args["new"] or args["n"]:
+    echo "Copy your TimeTable from VTOP and paste it in timetable.txt"
+    echo "Proceed(y/n) :"
+    let ans = readLine(stdin)
+    if ans=="y":
+        fetchreq()

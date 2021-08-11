@@ -3,8 +3,7 @@
 > A CLI that shows classes right in Terminal for you. Written in Nim.
 
 ---
-[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](INSERT_LINK_FOR_DOCS_HERE) 
-  [![UI ](https://img.shields.io/badge/User%20Interface-Link%20to%20UI-orange?style=flat-square&logo=appveyor)](https://vit-timetableapi.herokuapp.com/docs)
+[![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](https://vit-timetableapi.herokuapp.com/docs) 
 
 ## Features
 - Shows all classes
@@ -12,13 +11,18 @@
 - Shows classes today
 
 ## Instructions to run
+
 ```
 $ git clone "https://github.com/CartelProject/VITable-CLI"
+$ touch .vitable.json timetable.txt
 $ cd VITable-CLI
-$ make
+$ nimble build
 $ ./vitable -h
 ```
-
+#### Issues
+>In case you face an issue `
+>Error: unhandled exception: SSL support is not available. Cannot connect over SSL. Compile with -d:ssl to enable. [HttpRequestError]` 
+>add `-d:ssl` to your `nim.cfg` file
 ## Contributors
 - <a href="https://github.com/VisheshBansal">Vishesh Bansal</a>
 - <a href="https://github.com/gaganmalvi">Gagan Malvi</a>
