@@ -62,12 +62,14 @@ proc showTT() =
                 var
                     course = i["Course_FullName"]
                     coursecode = i["Course_Name"]
+                    coursetype = i["Course_type"]
                     slot = i["Slot"]
                     intime = i["StartTime"]
                     outtime = i["EndTime"]
                 echo ""
                 echo "Course: ", getStr(course)
                 echo "Course Code: ", getStr(coursecode)
+                echo "Course Type: ", getStr(coursetype)
                 echo "Timings: ", getStr(intime), " - ", getStr(outtime)
                 echo "Slot: ", getStr(slot)
 
@@ -108,7 +110,7 @@ proc classesOngoing() =
                 var intime = getStr(f["StartTime"])
                 var outtime = getStr(f["EndTime"])
                 if timenow > intime and timenow < outtime:
-                    echo "Ongoing: ", getStr(f["Course_Name"])
+                    echo "Ongoing: ", getStr(f["Course_Name"]), " - ", getStr(f["Course_type"])
 
 let args = docopt(doc, version = "1.0.0")
 
