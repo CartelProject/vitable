@@ -47,7 +47,9 @@ OPTIONS:
 """
 
 proc fetchreq() =
-    let f = open("timetable.txt")
+    var ttfile = getHomeDir()
+    ttfile.add("timetable.txt")
+    let f = open(ttfile)
     let data = readAll(f)
     var param = "request="
     param.add(data)
@@ -66,8 +68,8 @@ proc fetchreq() =
     f.close()
 
 proc fetchNewTt() =
-    echo "Copy your TimeTable from VTOP and paste it in timetable.txt"
-    echo "Proceed(y/n) :"
+    echo "Copy your timetable from VTOP and paste it in timetable.txt, which should be placed in the home directory."
+    echo "Proceed(y/n): "
     let ans = readLine(stdin)
     if ans=="y":
         fetchreq()
