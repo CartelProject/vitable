@@ -4,6 +4,9 @@
 
 [![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](https://vit-timetableapi.herokuapp.com/docs) 
 
+## Screenshot
+![VITable](/assets/vitable.png)
+
 ## Features
 - Shows all classes
 - Shows ongoing classes
