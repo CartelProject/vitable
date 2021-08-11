@@ -52,12 +52,14 @@ proc showTT() =
         for i in tt:
             if getStr(i["Day"]) == daytoday:
                 var
-                    course = i["Course_Name"]
+                    course = i["Course_FullName"]
+                    coursecode = i["Course_Name"]
                     slot = i["Slot"]
                     intime = i["StartTime"]
                     outtime = i["EndTime"]
                 echo ""
                 echo "Course: ", getStr(course)
+                echo "Course Code: ", getStr(coursecode)
                 echo "Timings: ", getStr(intime), " - ", getStr(outtime)
                 echo "Slot: ", getStr(slot)
 
