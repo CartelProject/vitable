@@ -1,4 +1,4 @@
-import os, json, times, strutils, docopt
+import os, json, times, strutils, docopt ,httpclient
 
 assert getHomeDir() == expandTilde("~")
 var path = getHomeDir()
@@ -19,7 +19,14 @@ function prompt_vitable() {
 """
 
 let doc = """
-VITable 1.0.0
+__      _______ _______    _     _      
+\ \    / /_   _|__   __|  | |   | |     
+ \ \  / /  | |    | | __ _| |__ | | ___ 
+  \ \/ /   | |    | |/ _` | '_ \| |/ _ \
+   \  /   _| |_   | | (_| | |_) | |  __/
+    \/   |_____|  |_|\__,_|_.__/|_|\___|
+
+            Version 1.0.0
 
 View your timetable right in your terminal!
 
@@ -30,8 +37,9 @@ Developers:
     Vishesh Bansal (https://github.com/VisheshBansal)
 
 USAGE:
-    vitable (s | show)
-    vitable (o | ongoing)
+    vitable (s | show | Shows all classes today)
+    vitable (o | ongoing | Shows ongoing class)
+    vitable (a | all | Shows full timetable)
     vitable p10k
     vitable (-h | --help)
     vitable (-v | --version)
@@ -63,6 +71,25 @@ proc showTT() =
                 echo "Timings: ", getStr(intime), " - ", getStr(outtime)
                 echo "Slot: ", getStr(slot)
 
+proc showAll() = 
+    echo "Full Timetable"
+    if daytoday == "SAT" or daytoday == "SUN":
+        echo "No classes for today!"
+    else: 
+        for i in tt:
+            echo "Day: ",getStr(i["Day"])
+            var
+                course = i["Course_FullName"]
+                coursecode = i["Course_Name"]
+                slot = i["Slot"]
+                intime = i["StartTime"]
+                outtime = i["EndTime"]
+            echo "Course: ", getStr(course)
+            echo "Course Code: ", getStr(coursecode)
+            echo "Timings: ", getStr(intime), " - ", getStr(outtime)
+            echo "Slot: ", getStr(slot)
+            echo ""
+
 proc p10kInstall() = 
     echo "VITable Powerlevel10k plugin.\n"
     echo "In ~/.p10k.zsh, add the following function.\n"
@@ -93,3 +120,6 @@ if args["p10k"]:
 
 if args["ongoing"] or args["o"]:
     classesOngoing()
+
+if args["all"] or args["a"]:
+    showAll()
