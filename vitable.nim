@@ -9,7 +9,12 @@ var tt = jsonNode["Slots"]
 let p10kfunc = """
 function prompt_vitable() {
         ttrem=$(vitable ongoing)
-        p10k segment -b yellow -f black -t " ✎ $ttrem"
+        if [ ! -z "$ttrem" ]
+        then
+                p10k segment -b yellow -f white -t "✎ $ttrem"
+        else
+                p10k segment -b yellow -f white -t "✎ No ongoing classes!"
+        fi
 }
 """
 
