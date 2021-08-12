@@ -153,7 +153,7 @@ proc classesOngoing() =
                     var intime = getStr(f["StartTime"])
                     var outtime = getStr(f["EndTime"])
                     if timenow > intime and timenow < outtime:
-                        echo "Ongoing: ", getStr(f["Course_Name"]), " - ", getStr(f["Course_type"])
+                        echo getStr(f["Course_FullName"])
     except IOError:
         fetchNewTt()
 
