@@ -12,7 +12,22 @@
 - Shows ongoing classes
 - Shows classes today
 
-## Instructions to run
+## Instructions to install
+
+You will need to install [Nim](https://nim-lang.org) on your host PC in order to run VITable.
+
+#### Linux
+Debian based operating systems - 
+```
+sudo apt install nim -y
+```
+
+And on Arch Linux - 
+```
+sudo pacman -S nim
+```
+
+After installing Nim, run the following.
 
 ```
 $ git clone "https://github.com/CartelProject/VITable-CLI"
