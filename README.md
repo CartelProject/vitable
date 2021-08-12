@@ -43,6 +43,8 @@ $ sudo cp src/vitable /usr/bin
 $ vitable -h 
 ```
 
+NOTE: On Arch Linux, vitable can be installed using the AUR!
+
 Congratulations, VITable should be up and running now!
 
 ## Contributors
