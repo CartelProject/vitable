@@ -33,9 +33,17 @@ After installing Nim, run the following.
 $ git clone "https://github.com/CartelProject/VITable-CLI"
 $ touch timetable.txt
 $ cd VITable-CLI
-$ make fullsysinst
-$ vitable -h
+$ make build
 ```
+
+Now, to make it visible throughout system
+
+```
+$ sudo cp src/vitable /usr/bin
+$ vitable -h 
+```
+
+Congratulations, VITable should be up and running now!
 
 ## Contributors
 - <a href="https://github.com/VisheshBansal">Vishesh Bansal</a>
