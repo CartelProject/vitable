@@ -111,22 +111,19 @@ proc showAll() =
         let jsonNode = parseFile(path)
         var tt = jsonNode["Slots"]
         echo "Full Timetable"
-        if daytoday == "SAT" or daytoday == "SUN":
-            echo "No classes for today!"
-        else: 
-            for i in tt:
-                echo "Day: ",getStr(i["Day"])
-                var
-                    course = i["Course_FullName"]
-                    coursecode = i["Course_Name"]
-                    slot = i["Slot"]
-                    intime = i["StartTime"]
-                    outtime = i["EndTime"]
-                echo "Course: ", getStr(course)
-                echo "Course Code: ", getStr(coursecode)
-                echo "Timings: ", getStr(intime), " - ", getStr(outtime)
-                echo "Slot: ", getStr(slot)
-                echo ""
+        for i in tt:
+            echo "Day: ",getStr(i["Day"])
+            var
+                course = i["Course_FullName"]
+                coursecode = i["Course_Name"]
+                slot = i["Slot"]
+                intime = i["StartTime"]
+                outtime = i["EndTime"]
+            echo "Course: ", getStr(course)
+            echo "Course Code: ", getStr(coursecode)
+            echo "Timings: ", getStr(intime), " - ", getStr(outtime)
+            echo "Slot: ", getStr(slot)
+            echo ""
     except IOError:
         fetchNewTt()
 
