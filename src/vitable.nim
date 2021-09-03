@@ -1,6 +1,6 @@
 import os, json, times, strutils, docopt , httpclient
 
-let cliversion = "0.1.0"
+let cliversion = "0.1.1"
 
 assert getHomeDir() == expandTilde("~")
 
@@ -149,7 +149,7 @@ proc classesOngoing() =
                     var timenow = daynow.format("HH:mm")
                     var intime = getStr(f["StartTime"])
                     var outtime = getStr(f["EndTime"])
-                    if timenow > intime and timenow < outtime:
+                    if timenow >= intime and timenow <= outtime:
                         echo getStr(f["Course_FullName"])
     except IOError:
         fetchNewTt()
