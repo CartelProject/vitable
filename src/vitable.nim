@@ -149,7 +149,7 @@ proc classesOngoing() =
                     var timenow = daynow.format("HH:mm")
                     var intime = getStr(f["StartTime"])
                     var outtime = getStr(f["EndTime"])
-                    if timenow > intime and timenow < outtime:
+                    if timenow >= intime and timenow <= outtime:
                         echo getStr(f["Course_FullName"])
     except IOError:
         fetchNewTt()
