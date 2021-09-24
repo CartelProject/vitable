@@ -4,6 +4,10 @@
 
 [![DOCS](https://img.shields.io/badge/Documentation-see%20docs-green?style=flat-square&logo=appveyor)](https://vit-timetableapi.herokuapp.com/docs) 
 
+## Caution!
+- This does NOT work for 2021-2025 batch students!
+- They have a different course structure. If you're a '25 batch student, please contact one of the maintainers and get your courses added.
+
 ## Screenshot
 ![VITable](/assets/vitable.png)
 
