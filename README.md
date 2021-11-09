@@ -6,8 +6,8 @@
 
 ## Caution!
 
-- This does NOT work for 2021-2025 batch students!
-- They have a different course structure. If you're a '25 batch student, please contact one of the maintainers and get your courses added.
+- The working of this for 2021-2025 batch students has NOT been extensively tested. Reporting any buys is appreciated.
+- If you're a '25 batch student and don't see your course, please contact one of the maintainers and get your courses added.
 
 ## Screenshot
 
@@ -17,6 +17,7 @@
 
 - Shows all classes
 - Shows ongoing classes
+- Shows next class
 - Shows classes today
 
 ## Instructions to install (Unix Based Systems)
