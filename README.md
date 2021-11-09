@@ -64,6 +64,7 @@ NOTE: On Arch Linux, vitable can be installed using the AUR!
 - [Git](https://git-scm.com/download/win)
 
 **These steps are for installing in the D drive**
+
 _Note Please, copy the contents of your timetable from VTOP -> Academics -> Time Table to timetable.txt_
 
 ```psh
