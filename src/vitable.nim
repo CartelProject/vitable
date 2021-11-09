@@ -152,12 +152,8 @@ proc classesOngoing() =
                     if timenow >= intime and timenow <= outtime:
                         echo getStr(f["Course_FullName"])
                     if timenow < intime:
-                        echo "Next Class"
-                        echo getStr(f["Course_FullName"])
-                        echo "at"
-                        echo intime
-                    else:
-                        echo "Either no class is ongoing or all classes for today are over."
+                        echo "Next Class: ", getStr(f["Course_FullName"])
+                        echo "at: ", intime
     except IOError:
         fetchNewTt()
 
