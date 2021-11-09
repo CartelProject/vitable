@@ -69,13 +69,13 @@ _Note Please, copy the contents of your timetable from VTOP -> Academics -> Time
 
 ```psh
 D:\> mkdir Tools
-D:\> cd Tools
-D:\> git clone "https://github.com/CartelProject/VITable-CLI"
-D:\> type nul >> C:\Users\%username%\timetable.txt
-D:\> cd VITable-CLI
-D:\> make build
-D:\> set PATH=%PATH%;"D:\Tools\VITable-CLI\src"
-D:\> vitable -h
+D:\Tools> cd Tools
+D:\Tools> git clone "https://github.com/CartelProject/VITable-CLI"
+D:\Tools> type nul >> C:\Users\%username%\timetable.txt
+D:\Tools> cd VITable-CLI
+D:\Tools\VITable-CLI> make build
+D:\Tools\VITable-CLI> set PATH=%PATH%;"D:\Tools\VITable-CLI\src"
+D:\Tools\VITable-CLI> vitable -h
 ```
 
 Congratulations, VITable should be up and running now!
