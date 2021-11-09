@@ -31,17 +31,17 @@
 
 You will need to install [Nim](https://nim-lang.org) on your host PC in order to run VITable.
 
-#### Linux
+### Linux
 
 Debian based operating systems -
 
-```
+```sh
 sudo apt install nim -y
 ```
 
 And on Arch Linux -
 
-```
+```sh
 sudo pacman -S nim
 ```
 
@@ -56,7 +56,7 @@ make build
 
 Now, to make it visible throughout system
 
-```
+```sh
 sudo cp src/vitable /usr/bin
 vitable -h
 ```
@@ -71,17 +71,17 @@ NOTE: On Arch Linux, vitable can be installed using the AUR!
 - [Nim](https://nim-lang.org)
 - [Git](https://git-scm.com/download/win)
 
-**These steps are for installing in the D drive**
+### These steps are for installing in the D drive
 
-_Note Please, copy the contents of your timetable from VTOP -> Academics -> Time Table to timetable.txt_
+Note Please, copy the contents of your timetable from VTOP -> Academics -> Time Table to timetable.
 
-**Run the next steps in an elevated command shell**
+### Run the next steps in an elevated command shell
 
 ```psh
 C:\WINDOWS\system32> choco install make
 ```
 
-**Restart Terminal (Not necessarily elevated)**
+### Restart Terminal (Not necessarily elevated)
 
 ```psh
 D:\> mkdir Tools
