@@ -67,6 +67,12 @@ NOTE: On Arch Linux, vitable can be installed using the AUR!
 
 _Note Please, copy the contents of your timetable from VTOP -> Academics -> Time Table to timetable.txt_
 
+**Run the next steps in an elevated command shell**
+
+```psh
+C:\WINDOWS\system32> choco install make
+```
+
 ```psh
 D:\> mkdir Tools
 D:\Tools> cd Tools
