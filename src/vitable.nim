@@ -151,6 +151,9 @@ proc classesOngoing() =
                     var outtime = getStr(f["EndTime"])
                     if timenow >= intime and timenow <= outtime:
                         echo getStr(f["Course_FullName"])
+                    if timenow < intime:
+                        echo "Next Class: ", getStr(f["Course_FullName"])
+                        echo "at: ", intime
     except IOError:
         fetchNewTt()
 
