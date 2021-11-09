@@ -73,6 +73,8 @@ _Note Please, copy the contents of your timetable from VTOP -> Academics -> Time
 C:\WINDOWS\system32> choco install make
 ```
 
+**Restart Terminal (Not necessarily elevated)**
+
 ```psh
 D:\> mkdir Tools
 D:\Tools> cd Tools
