@@ -154,6 +154,7 @@ proc classesOngoing() =
                     if timenow < intime:
                         echo "Next Class: ", getStr(f["Course_FullName"])
                         echo "at: ", intime
+                        break
     except IOError:
         fetchNewTt()
 
