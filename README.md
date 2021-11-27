@@ -89,6 +89,55 @@ D:\Tools\VITable-CLI> vitable -h
 
 Congratulations, VITable should be up and running now!
 
+## Instructions to Install (Android)
+
+### Dependencies for Android
+
+- A Terminal Emulator (Example: Termux, Termius)
+- A timetable.txt file (Preferable to first install on a desktop and transfer that file to mobile.)
+
+### Preferred Installation Method
+
+#### Pre-Requisites
+
+- Download & Install [Termux](https://f-droid.org/repo/com.termux_117.apk)
+- Download & Install [Termux-API](https://f-droid.org/repo/com.termux.api_49.apk)
+- Install the Termux API package
+
+```sh
+pkg install termux-api
+```
+
+- Assuming you have transferred the timetable.txt file from your desktop, run this command and allow permissions.
+
+```sh
+termux-setup-storage
+```
+
+- Now we save the External timetable.txt file to the local termux file storage.
+
+```sh
+termux-storage-get timetable.txt
+```
+
+- After running that command, navigate to the timetable.txt you have transferred from your desktop.
+
+#### Configuration
+
+- Installing nim and make.
+
+```sh
+apt install nim -y
+pkg install make
+```
+
+- Cloning the Repository
+
+```sh
+git clone "https://github.com/CartelProject/VITable-CLI"
+cd VITable-CLI
+```
+
 ## Contributors
 
 - <a href="https://github.com/VisheshBansal">Vishesh Bansal</a>
