@@ -145,10 +145,11 @@ cd VITable-CLI
 ```sh
 make build
 cd src
-nim c -d:ssl vitable.nim
 cp src/vitable $HOME
 ./vitable
 ```
+
+**Note: You may face an SSL Error, (1416F086), No fix for it is currently known. Troubleshooting includes, checking if your date/time is synced, disabling any AV's and VPN's and signing a new certificate.**
 
 ## Contributors
 
