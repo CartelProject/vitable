@@ -1,4 +1,4 @@
-import os, json, times, strutils, docopt , httpclient
+import os, json, times, strutils, docopt , httpclient, terminal
 
 let cliversion = "0.1.1"
 
@@ -62,9 +62,9 @@ proc fetchreq() =
     if response.status == "200 OK":
         let resp = response.body
         writeFile(path, resp)
-        echo "The timetable has been saved successfully. Please re-run vitable -h to know the list of commands you can now use."
+        styledEcho styleBright, fgGreen, "The timetable has been saved successfully. Please re-run vitable -h to know the list of commands you can now use."
     else:
-        echo "Something went wrong. Please retry once again."
+        styledEcho styleBright, fgRed, "Something went wrong. Please retry once again."
     f.close()
 
 proc fetchNewTt() =
