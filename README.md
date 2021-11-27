@@ -127,6 +127,8 @@ termux-storage-get timetable.txt
 - Installing nim and make.
 
 ```sh
+pkg install root-repo
+apt update && apt upgrade -y
 apt install nim -y
 pkg install make
 ```
@@ -136,6 +138,16 @@ pkg install make
 ```sh
 git clone "https://github.com/CartelProject/VITable-CLI"
 cd VITable-CLI
+```
+
+- Installing
+
+```sh
+make build
+cd src
+nim c -d:ssl vitable.nim
+cp src/vitable $HOME
+./vitable
 ```
 
 ## Contributors
