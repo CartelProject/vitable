@@ -17,9 +17,9 @@ function prompt_vitable() {
 """
 
 let doc = """
-__      _______ _______    _     _      
-\ \    / /_   _|__   __|  | |   | |     
- \ \  / /  | |    | | __ _| |__ | | ___ 
+__      _______ _______    _     _
+\ \    / /_   _|__   __|  | |   | |
+ \ \  / /  | |    | | __ _| |__ | | ___
   \ \/ /   | |    | |/ _` | '_ \| |/ _ \
    \  /   _| |_   | | (_| | |_) | |  __/
     \/   |_____|  |_|\__,_|_.__/|_|\___|
@@ -31,6 +31,7 @@ Created with ❤️  by the Cartel Family.
 Developers:
     Gagan Malvi (https://github.com/gaganmalvi)
     Vishesh Bansal (https://github.com/VisheshBansal)
+    Rishabh Agrawal (https://github.com/saintwithataint)
 
 USAGE:
     vitable (s | show | Shows all classes today)
@@ -76,7 +77,7 @@ proc fetchNewTt() =
 let daynow = now()
 var daytoday = toUpperAscii(daynow.format("ddd"))
 
-proc showTT() = 
+proc showTT() =
     try:
         var path = getHomeDir()
         path.add(".vitable.json")
@@ -85,7 +86,7 @@ proc showTT() =
         echo "Timetable for today."
         if daytoday == "SAT" or daytoday == "SUN":
             echo "No classes for today!"
-        else: 
+        else:
             for i in tt:
                 if getStr(i["Day"]) == daytoday:
                     var
@@ -104,7 +105,7 @@ proc showTT() =
     except IOError:
         fetchNewTt()
 
-proc showAll() = 
+proc showAll() =
     try:
         var path = getHomeDir()
         path.add(".vitable.json")
@@ -127,7 +128,7 @@ proc showAll() =
     except IOError:
         fetchNewTt()
 
-proc p10kInstall() = 
+proc p10kInstall() =
     echo "VITable Powerlevel10k plugin.\n"
     echo "In ~/.p10k.zsh, add the following function.\n"
     echo p10kfunc
@@ -135,7 +136,7 @@ proc p10kInstall() =
     echo "Now, add the definition vitable to LEFT or RIGHT arguments, whatever you prefer.\n"
     echo "Source .zshrc, or restart your terminal."
 
-proc classesOngoing() =  
+proc classesOngoing() =
     try:
         var path = getHomeDir()
         path.add(".vitable.json")
@@ -150,7 +151,8 @@ proc classesOngoing() =
                     var intime = getStr(f["StartTime"])
                     var outtime = getStr(f["EndTime"])
                     if timenow >= intime and timenow <= outtime:
-                        echo getStr(f["Course_FullName"])
+                        echo "Current Class: ", getStr(f["Course_FullName"])
+                        echo "at: ", timenow
                     if timenow < intime:
                         echo "Next Class: ", getStr(f["Course_FullName"])
                         echo "at: ", intime
